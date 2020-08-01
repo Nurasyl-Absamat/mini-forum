@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Channel;
+use Dotenv\Result\Success;
 use Illuminate\Http\Request;
 
 class ChannelController extends Controller
@@ -13,7 +15,7 @@ class ChannelController extends Controller
      */
     public function index()
     {
-        //
+        return view('channels.index')->with('channels', Channel::all());
     }
 
     /**
@@ -23,7 +25,7 @@ class ChannelController extends Controller
      */
     public function create()
     {
-        //
+        return view('channels.create');
     }
 
     /**
@@ -34,7 +36,14 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'channel' => 'required',
+        ]);
+        Channel::create([
+            'title' => $request->channel,
+        ]);
+        toastr('Channel Successfully created', 'success');
+        return redirect(route('channels.index'));
     }
 
     /**
@@ -56,7 +65,7 @@ class ChannelController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('channels.edit')->with('channel', Channel::findOrFail($id));
     }
 
     /**
@@ -68,7 +77,18 @@ class ChannelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'channel' => 'required',
+        ]);
+
+        $channel = Channel::find($id);
+
+        $channel->title = $request->channel;
+        $channel->save();
+        toastr('Successfully updated');
+
+        return redirect()->route('channels.index');
+
     }
 
     /**
@@ -79,6 +99,9 @@ class ChannelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Channel::destroy($id);
+
+        toastr('Successfully deleted', 'success');
+        return redirect()->back();
     }
 }

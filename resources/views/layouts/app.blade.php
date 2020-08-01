@@ -89,27 +89,14 @@
 
                         <ul class="list-group">
 
-                                <li class="list-group-header">
-                                    <a href="#">Channels</a>
+                                <li class="list-group-item text-success">
+                                    <a href="{{route('channels.index')}}">Channels</a>
                                 </li>
-                            <li class="list-group-item">
-                            </li>
 
-                            <li class="list-group-item">
-                                <a href=" route('category.create') }}"> Create new Category</a>
-                            </li>
 
-                            <li class="list-group-item">
-                                <a href=" route('post.create') }}"> Create new Post</a>
-                            </li>
 
-                            <li class="list-group-item">
-                                <a href=" route('tag.create') }}">Create Tags </a>
-                            </li>
 
-                            <li class="list-group-item">
-                                <a href=" route('post.trashed') }}" class="text-danger"> Trashed Posts</a>
-                            </li>
+
 
                             @if(Auth::user()->admin)
                                 <li class="list-group-item">
