@@ -86,24 +86,19 @@
                 <div class="row">
                     @if (Auth::check())
                     <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <a href="{{route('channels.index')}}">Channels</a>
+                            </div>
 
-                        <ul class="list-group">
-
-                                <li class="list-group-item text-success">
-                                    <a href="{{route('channels.index')}}">Channels</a>
-                                </li>
-
-
-
-
-
-
-                            @if(Auth::user()->admin)
-                                <li class="list-group-item">
-                                    <a href=" route('settings') }}">Settings </a>
-                                </li>
-                            @endif
-                        </ul>
+                            <div class="card-body">
+                                @foreach ($channels as $channel)
+                                    <li class="list-group-item">
+                                        {{ $channel->title }}
+                                    </li>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                     @endif
                     <div class="col-lg-8">
