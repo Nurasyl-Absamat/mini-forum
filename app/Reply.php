@@ -13,9 +13,9 @@ class Reply extends Model
         return $this->belongsTo('App\Discussion');
     }
 
-    public function likes()
+    public function user()
     {
-        return $this->hasMany('App\Like');
+        return $this->belongsTo('App\User');
     }
 
 }

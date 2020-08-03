@@ -86,6 +86,11 @@
                 <div class="row">
                     @if (Auth::check())
                     <div class="col-lg-4">
+                        <a href="{{route('discuss.create')}}" class="form-control btn btn-primary">
+                            Create a discussion
+                        </a>
+                        <br>
+                        <br>
                         <div class="card">
                             <div class="card-header">
                                 <a href="{{route('channels.index')}}">Channels</a>
@@ -94,7 +99,9 @@
                             <div class="card-body">
                                 @foreach ($channels as $channel)
                                     <li class="list-group-item">
-                                        {{ $channel->title }}
+                                        <a href="{{route('discuss.showChannel', ['channel' => $channel->id])}}">
+                                            {{$channel->title}}
+                                        </a>
                                     </li>
                                 @endforeach
                             </div>

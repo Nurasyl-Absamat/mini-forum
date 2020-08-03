@@ -19,8 +19,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/forum', 'ForumController@index')->name('forum');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('channels', 'ChannelController');
+    Route::get('discuss/create', 'DiscussionController@create')->name('discuss.create');
+    Route::post('discuss/store', 'DiscussionController@store')->name('discuss.store');
+    Route::get('discussion/{slug}', 'DiscussionController@show')->name('discuss.show');
+    Route::get('discussions/{channel}', 'DiscussionController@showChannel')->name('discuss.showChannel');
+    Route::post('discussions/{id}', 'DiscussionController@reply')->name('discuss.reply');
+
+
 });
+
+

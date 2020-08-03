@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -8,6 +9,7 @@
                 <div class="card-header">Create channel</div>
 
                 <div class="card-body">
+
                     <form action="{{ route('channels.store')}}" method="post">
                         {{ csrf_field() }}
 

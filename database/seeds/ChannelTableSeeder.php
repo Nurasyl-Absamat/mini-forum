@@ -12,6 +12,17 @@ class ChannelTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Channel', 5)->create();
+        Channel::create([
+            'title' => 'GIT',
+        ]);
+        Channel::create([
+            'title' => 'JavaScript',
+        ]);
+        Channel::create([
+            'title' => 'Laravel',
+        ]);
+        Channel::create([
+            'title' => 'Vue',
+        ]);
     }
 }

@@ -55,8 +55,8 @@
                     </table>
 
                 </div>
-                <a href="{{route('channels.create')}}" class="text-light">
-                    <div class="text-center btn-success">Create</div>
+                <a href="{{route('channels.create')}}" class="btn btn-lg">
+                    <div class="btn-primary">Create</div>
                 </a>
 
             </div>
