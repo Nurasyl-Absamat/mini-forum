@@ -26,7 +26,9 @@
 
                 </div>
                 <div>
-                    {{ $discussion->replies->count()}}
+                    @if ($discussion->replies->count() != 0)
+                    {{ $discussion->replies->count()}} Replies
+                    @endif
                 </div>
 
             </div>

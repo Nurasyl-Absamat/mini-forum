@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card">
+<div class="card text-white bg-success mb-5">
     <div class="card-header">
 
 
@@ -22,14 +22,15 @@
 
         </div>
         <div>
-            {{ $discussion->replies->count()}}
+            @if ($discussion->replies->count() != 0)
+                    {{ $discussion->replies->count()}} Replies
+            @endif
         </div>
 
     </div>
 </div>
-<br>
 @foreach ($discussion->replies as $r)
-    <div class="card">
+    <div class="card border-primary primary mb-3">
         <div class="card-header">
 
 
@@ -40,17 +41,22 @@
 
         <div class="card-body">
 
-
             <h5 class="text-center">
                 {{ $r->content }}
             </h5>
         </div>
         <div class="card-footer">
-            <div>LIKE</div>
+            <div>
+                @if ($r->is_liked_by_auth_user())
+                    <a href=" {{ route('reply.unlike', ['id' => $r->id]) }} " class="btn btn-secondary btn-sm" style="min-width: 80px">Unlike <span class="badge badge-light">{{ $r->likes->count() }}</span></a>
+                @else
+                    <a href=" {{ route('reply.like', ['id' => $r->id]) }} " class="btn btn-success btn-sm" style="min-width: 80px">Like <span class="badge badge-light">{{ $r->likes->count() }}</span></a>
+                @endif
+
+            </div>
 
         </div>
     </div>
-    <br>
 @endforeach
 
 <div class="card">

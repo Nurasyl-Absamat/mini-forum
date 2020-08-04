@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -28,7 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('discussion/{slug}', 'DiscussionController@show')->name('discuss.show');
     Route::get('discussions/{channel}', 'DiscussionController@showChannel')->name('discuss.showChannel');
     Route::post('discussions/{id}', 'DiscussionController@reply')->name('discuss.reply');
-
+    Route::get('reply/like/{id}', 'RepliesController@like')->name('reply.like');
+    Route::get('reply/unlike/{id}', 'RepliesController@unlike')->name('reply.unlike');
 
 });
 
