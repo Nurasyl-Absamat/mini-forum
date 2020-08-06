@@ -21,16 +21,22 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/forum', 'ForumController@index')->name('forum');
+Route::get('discussion/{slug}', 'DiscussionController@show')->name('discuss.show');
+Route::post('discussions/{id}', 'DiscussionController@reply')->name('discuss.reply');
+Route::get('discussions/{channel}', 'DiscussionController@showChannel')->name('discuss.showChannel');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('channels', 'ChannelController');
-    Route::get('discuss/create', 'DiscussionController@create')->name('discuss.create');
+
+    Route::get('discuss/create/new', 'DiscussionController@create')->name('discuss.create');
     Route::post('discuss/store', 'DiscussionController@store')->name('discuss.store');
-    Route::get('discussion/{slug}', 'DiscussionController@show')->name('discuss.show');
-    Route::get('discussions/{channel}', 'DiscussionController@showChannel')->name('discuss.showChannel');
-    Route::post('discussions/{id}', 'DiscussionController@reply')->name('discuss.reply');
     Route::get('reply/like/{id}', 'RepliesController@like')->name('reply.like');
     Route::get('reply/unlike/{id}', 'RepliesController@unlike')->name('reply.unlike');
+    Route::get('reply/delete/{id}', 'RepliesController@destroy')->name('reply.delete');
+
+    Route::get('discussion/watch/{id}', 'WatchersController@watch')->name('discussion.watch');
+    Route::get('discussion/unwatch/{id}', 'WatchersController@unwatch')->name('discussion.unwatch');
+
 
 });
 

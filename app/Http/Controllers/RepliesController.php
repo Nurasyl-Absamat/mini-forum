@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Like;
+use App\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,4 +28,14 @@ class RepliesController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroy($id)
+    {
+        Reply::destroy($id);
+        toastr('You successfully deleted your reply');
+
+        return redirect()->back();
+    }
+
+
 }

@@ -38,4 +38,9 @@ class Reply extends Model
         return false;
     }
 
+    public function is_reply_by_auth_user()
+    {
+        return $this->user_id == Auth::id();
+    }
+
 }
