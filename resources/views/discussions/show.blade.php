@@ -3,7 +3,11 @@
 @section('content')
 <div class="card text-white bg-success mb-5">
     <div class="card-header">
-
+        @if ($discussion->is_watched_by_auth_user())
+            <a href="{{route('discussion.unwatch', ['id' => $discussion->id]) }}" class="btn btn-secondary" style="float: right">Unwatch</a>
+        @else
+            <a href="{{route('discussion.watch', ['id' => $discussion->id]) }}" class="btn btn-dark" style="float: right">Watch</a>
+        @endif
 
         <p>{{$discussion->user->name}}, <b> {{ $discussion->created_at->diffForHumans() }} </b></p>
 
