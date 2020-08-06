@@ -2,12 +2,15 @@
 
 @section('content')
 
-    @yield('channel')
 
     @foreach ($discussions as $discussion)
         <div class="card">
             <div class="card-header">
-                <a href="{{route('discuss.show', ['slug' => $discussion->slug])}}" class="btn btn-light" style="float: right">View</a>
+                @if ($discussion->is_watched_by_auth_user())
+                    <a href="{{route('discussion.unwatch', ['id' => $discussion->id]) }}" class="btn btn-secondary" style="float: right">Unwatch</a>
+                @else
+                    <a href="{{route('discussion.watch', ['id' => $discussion->id]) }}" class="btn btn-dark" style="float: right">Watch</a>
+                @endif
 
                 <p>{{$discussion->user->name}}, <b> {{ $discussion->created_at->diffForHumans() }} </b></p>
 
@@ -22,14 +25,12 @@
                 </h5>
             </div>
             <div class="card-footer">
-                <div>
-
+                <div style="float: right">
+                    <a href=" {{ route('discuss.showChannel', ['channel' => $discussion->channel_id]) }} " class="btn btn-dark">{{$discussion->channel->title}}</a>
                 </div>
-                <div>
-                    @if ($discussion->replies->count() != 0)
+                @if ($discussion->replies->count() != 0)
                     {{ $discussion->replies->count()}} Replies
-                    @endif
-                </div>
+                @endif
 
             </div>
         </div>

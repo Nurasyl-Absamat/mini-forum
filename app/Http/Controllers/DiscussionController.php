@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Discussion;
+use App\Notifications\NewReplyAdded;
 use App\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Notification;
+use App\User;
 use Illuminate\Support\Str;
 
 
@@ -115,12 +118,26 @@ class DiscussionController extends Controller
 
     public function reply($id)
     {
+
         Reply::create([
             'content' => request()->content,
             'user_id' => Auth::id(),
             'discussion_id' => $id
         ]);
+        $d = Discussion::findOrFail($id);
+        $watchers = array();
+
+        foreach($d->watchers as $watch):
+            if($watch->user_id != Auth::id())
+            {
+                array_push($watchers, User::find($watch->user_id));
+            }
+        endforeach;
+
+        Notification::send($watchers, new NewReplyAdded($d));
 
         return redirect()->back();
     }
+
+
 }
