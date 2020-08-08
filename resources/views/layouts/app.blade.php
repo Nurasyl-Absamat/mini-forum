@@ -90,9 +90,26 @@
                         </a>
                         <br>
                         <br>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                    <li class="list-group-item">
+                                        <a href="{{route('forum')}}">
+                                            Home
+                                        </a>
+                                    </li>
+                                    <div class="list-group-item">
+                                        <a href="/forum?filter=me">
+                                            My discussions
+                                        </a>
+                                    </div>
+                            </div>
+                        </div>
                         <div class="card">
+                            {{-- If user is admin he or she) can edit and delete channels --}}
                             <div class="card-header">
-                                <a href="{{route('channels.index')}}">Channels</a>
+                                <a @if (Auth::check() && Auth::user()->admin)
+                                    href="{{route('channels.index')}}"
+                                @endif>Channels</a>
                             </div>
 
                             <div class="card-body">

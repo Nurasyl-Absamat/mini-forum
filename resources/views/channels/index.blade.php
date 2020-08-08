@@ -22,9 +22,11 @@
                         <tbody>
                             @foreach ($channels as $channel)
                                 <tr>
+
                                     <td>
-                                        {{$channel->title}}
+                                        <a href="{{ route('discuss.showChannel', ['channel' => $channel->id]) }}">{{$channel->title}}</a>
                                     </td>
+
 
                                     <td>
                                         <a href="{{route('channels.edit', ['channel' => $channel->id])}}" class="btn btn-sm btn-primary">Edit</a>
@@ -37,7 +39,7 @@
 
                                             <div class="form-group">
                                                 <button class="btn btn-sm btn-danger" type="submit">
-                                                    DELETE
+                                                    Delete
                                                 </button>
                                             </div>
                                         </form>

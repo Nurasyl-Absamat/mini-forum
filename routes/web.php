@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('discuss/create/new', 'DiscussionController@create')->name('discuss.create');
     Route::post('discuss/store', 'DiscussionController@store')->name('discuss.store');
+    Route::get('discuss/edit/{id}', 'DiscussionController@edit')->name('discuss.edit');
+    Route::post('discuss/update/{id}', 'DiscussionController@update')->name('discuss.update');
+
     Route::get('reply/like/{id}', 'RepliesController@like')->name('reply.like');
     Route::get('reply/unlike/{id}', 'RepliesController@unlike')->name('reply.unlike');
     Route::get('reply/delete/{id}', 'RepliesController@destroy')->name('reply.delete');

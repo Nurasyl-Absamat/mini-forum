@@ -90,7 +90,8 @@ class DiscussionController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        return view('discussions.edit', ['d' => Discussion::find($id)]);
     }
 
     /**
@@ -102,7 +103,23 @@ class DiscussionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+            'channel_id' => 'required',
+        ]);
+
+        $d = Discussion::find($id);
+
+        $d->title = $request->title;
+        $d->content = $request->content;
+        $d->channel_id = $request->channel_id;
+
+        $d->save();
+
+        toastr('Successfully updated');
+
+        return redirect('/forum?filter=me');
     }
 
     /**
