@@ -42,7 +42,7 @@ You can now access the server at http://localhost:8000
 
 **Command list**
 
-    git clone git@github.com:gothinkster/laravel-realworld-example-app.git
+    git clone https://github.com/Nurasyl-Absamat/mini-forum.git
     cd laravel-realworld-example-app
     composer install
     cp .env.example .env
