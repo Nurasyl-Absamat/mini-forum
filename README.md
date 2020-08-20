@@ -69,21 +69,21 @@ Run the database seeder and you're done
 
 You navigate in forum with channels. As you are the admin you can add, edit or delete channels. 
 
-<img src="C:\laragon\www\mini-forum\screenshots\ChannelsBar.png" /> 
-<img src="C:\laragon\www\mini-forum\screenshots\ChannelsCrud.png" />
+<img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/ChannelsBar.png" /> 
+<img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/ChannelsCrud.png" />
 
 Forum page
 
-<img src="C:\laragon\www\mini-forum\screenshots\Forum.png" />
+<img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/Forum.png" />
 
 You can watch discussion. This means if someone will add reply to discussion, message will be received to your email. I trap messages with mailtrap.io, but you can do it on your own and if you want to, see the website https://mailtrap.io/. Also you can leave a reply and like replies
 
-<img src="C:\laragon\www\mini-forum\screenshots\Forum.png" />
-<img src="C:\laragon\www\mini-forum\screenshots\LikeAndReplies.png" />
+<img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/Discussion.png" />
+<img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/LikeAndReplies.png" />
 
 You can see only your discussions by this url http://mini-forum.test/forum?filter=me or click My discussions on panel.
 
-<img src="C:\laragon\www\mini-forum\screenshots\MyDiscussion.png" />
+<img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/MyDiscussion.png" />
 
 
 
