@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card text-white bg-success mb-5">
+<div class="card text-dark bg-primary mb-5">
     <div class="card-header">
         @if ($discussion->is_watched_by_auth_user())
             <a href="{{route('discussion.unwatch', ['id' => $discussion->id]) }}" class="btn btn-secondary btn-sm" style="float: right">Unwatch</a>
@@ -22,7 +22,7 @@
         <h3 class="text-center"><b>{{ $discussion->title }}</b></h3>
 
         <h5 class="text-center">
-            {{ $discussion->content}}
+            {{ \Illuminate\Mail\Markdown::parse($discussion->content) }}
         </h5>
     </div>
     <div class="card-footer">
