@@ -47,7 +47,6 @@ You can now access the server at http://localhost:8000
     composer install
     cp .env.example .env
     php artisan key:generate
-    php artisan jwt:generate 
 
 ## Database seeding
 
