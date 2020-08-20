@@ -79,6 +79,7 @@ You can watch discussion. This means if someone will add reply to discussion, me
 
 <img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/Discussion.png" />
 <img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/LikeAndReplies.png" />
+<img src="https://github.com/Nurasyl-Absamat/mini-forum/blob/second/screenshots/Mailtrap.png" />
 
 You can see only your discussions by this url http://mini-forum.test/forum?filter=me or click My discussions on panel.
 
