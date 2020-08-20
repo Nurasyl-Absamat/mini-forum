@@ -144,7 +144,6 @@
 @jquery
     @toastr_js
     @toastr_render
-    <script src="/path/to/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+
 
 </html>

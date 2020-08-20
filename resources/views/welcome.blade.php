@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <a href=" {{route('forum')}} " style="text-decoration: none; color: black">Forum</a>
+                    <a href=" {{route('forum')}} " style="text-decoration: none; color: black;">Go to Forum</a>
                 </div>
 
                 <div class="links">

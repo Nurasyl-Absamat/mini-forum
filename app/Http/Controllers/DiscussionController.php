@@ -130,7 +130,11 @@ class DiscussionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Discussion::destroy($id);
+
+        toastr('Successfully deleted', 'success');
+
+        return redirect()->route('forum');
     }
 
     public function reply($id)
