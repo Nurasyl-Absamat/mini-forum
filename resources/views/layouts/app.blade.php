@@ -34,6 +34,7 @@
 
 </head>
 <body>
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -88,6 +89,15 @@
 
         <main class="py-4">
             <div class="container">
+                @if (count($errors) > 0)
+                <ul class="list-group">
+                    @foreach ($errors->all() as $error)
+                        <li class="list-group-item text-danger">
+                            {{ $error }}
+                        </li>
+                    @endforeach
+                </ul>
+                @endif
                 <div class="row">
                     <div class="col-md-4">
                         <a href="{{route('discuss.create')}}" class="form-control btn btn-primary">
