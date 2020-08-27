@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RepliesController extends Controller
 {
+    /**
+     * Like the the reply
+     *
+     * @param int $id reply id
+     *
+     */
     public function like($id)
     {
         Like::create([
@@ -20,6 +26,7 @@ class RepliesController extends Controller
 
         return redirect()->back();
     }
+
     public function unlike($id)
     {
         $like = Like::where('reply_id', $id)->where('user_id', Auth::id())->first();
@@ -36,6 +43,4 @@ class RepliesController extends Controller
 
         return redirect()->back();
     }
-
-
 }

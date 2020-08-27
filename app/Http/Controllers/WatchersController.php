@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class WatchersController extends Controller
 {
+    /**
+     * Let user watch the discussion, will have notification if someone leave reply
+     *
+     * @param int $id discussion id
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+
     public function watch($id)
     {
         Watcher::create([
@@ -20,7 +27,12 @@ class WatchersController extends Controller
 
         return redirect()->route('discuss.show', ['slug' => Discussion::find($id)->slug]);
     }
-
+    /**
+     * And just stop watching the discussion
+     *
+     * @param int $id discussion id
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function unwatch($id)
     {
         $watch = Watcher::where('discussion_id', $id)->where('user_id', Auth::id());
@@ -29,7 +41,6 @@ class WatchersController extends Controller
 
         toastr('You unwatched this discussion', 'success');
 
-        return redirect()->back();
-
+        return redirect()->route('discuss.show', ['slug' => Discussion::find($id)->slug]);
     }
 }

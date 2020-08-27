@@ -73,7 +73,12 @@ class DiscussionController extends Controller
         return view('discussions.show')->with('discussion', $discuss);
     }
 
-
+    /**
+     * Display discussions with that channel
+     *
+     * @param int $id
+     * @return view with discussions
+     */
     public function showChannel($id)
     {
         $discussions = Discussion::where('channel_id', $id)->orderBy('created_at', 'desc')->paginate(3);
@@ -136,6 +141,13 @@ class DiscussionController extends Controller
 
         return redirect()->route('forum');
     }
+    /**
+     * Create the reply for the discussion
+     * Also Notification for watchers that someone leaved reply
+     *
+     * @param int $id discussion id
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 
     public function reply($id)
     {
@@ -157,7 +169,7 @@ class DiscussionController extends Controller
 
         Notification::send($watchers, new NewReplyAdded($d));
 
-        return redirect()->back();
+        return redirect()->route('discuss.show', ['slug' => $d->slug]);
     }
 
 
