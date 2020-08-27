@@ -4,7 +4,12 @@
     <div class="card-header">
 
         @if ($r->is_reply_by_auth_user())
-            <a href="{{route('reply.delete', ['id' => $r->id])}}" class="btn btn-sm btn-danger" style="float: right">Delete</a>
+            <form action="{{route('reply.delete', ['id' => $r->id])}}" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit" class="btn btn-sm btn-danger" style="float: right">Delete</button>
+            </form>
         @endif
 
         <p>{{$r->user->name}}, <b> {{ $r->created_at->diffForHumans() }} </b></p>

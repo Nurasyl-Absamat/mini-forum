@@ -2,7 +2,7 @@
     <div class="card-body">
         @if (Auth::check())
             <form action="{{ route('discuss.reply', ['id' => $discussion->id]) }}" method="POST">
-                {{ csrf_field() }}
+                @csrf
 
                 <div class="form-group">
                     <label for="reply"> Your Reply</label>

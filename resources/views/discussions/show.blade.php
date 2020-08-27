@@ -28,7 +28,13 @@
     <div class="card-footer">
         @if (Auth::check() && Auth::id() == $discussion->user_id)
             <div style="float: right">
-                <a href=" {{route('discuss.delete', ['id' => $discussion->id])}} " class="btn btn-sm btn-danger">Delete</a>
+                <form action="{{route('discuss.delete', ['id' => $discussion->id])}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</a>
+                </form>
+
             </div>
         @endif
         <div>

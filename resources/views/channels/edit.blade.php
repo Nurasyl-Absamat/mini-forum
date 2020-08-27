@@ -9,8 +9,8 @@
 
                 <div class="card-body">
                     <form action="{{ route('channels.update', ['channel' =>$channel->id])}}" method="post">
-                        {{ csrf_field() }}
-                        {{ method_field('PUT')}}
+                        @csrf
+                        @method('PUT')
 
                         <div class="form-group">
                             <input type="text" name="channel" value="{{ $channel->title}}" class="form-control">

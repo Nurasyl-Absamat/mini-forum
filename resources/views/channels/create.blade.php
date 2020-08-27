@@ -9,7 +9,7 @@
     <div class="card-body">
 
         <form action="{{ route('channels.store')}}" method="post">
-            {{ csrf_field() }}
+            @csrf
 
             <div class="form-group">
                 <input type="text" name="channel" class="form-control">

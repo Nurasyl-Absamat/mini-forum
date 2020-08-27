@@ -34,9 +34,8 @@
 
                                     <td>
                                         <form action="{{ route('channels.destroy', ['channel' => $channel->id]) }}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-
+                                            @csrf
+                                            @method('DELETE')
                                             <div class="form-group">
                                                 <button class="btn btn-sm btn-danger" type="submit">
                                                     Delete

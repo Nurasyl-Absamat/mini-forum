@@ -8,7 +8,7 @@
     <div class="card-body">
 
         <form action="{{route('discuss.store')}}" method="POST">
-            {{ csrf_field() }}
+            @csrf
 
             <div class="form-group">
                 <label for="title">Title</label>

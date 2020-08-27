@@ -8,7 +8,8 @@
     <div class="card-body">
 
         <form action="{{route('discuss.update', ['id' => $d->id])}}" method="POST">
-            {{ csrf_field() }}
+            @csrf
+            @method('PUT')
 
             <div class="form-group">
                 <label for="title">Title</label>
