@@ -158,19 +158,41 @@ class DiscussionController extends Controller
             'discussion_id' => $id
         ]);
         $d = Discussion::findOrFail($id);
-        $watchers = array();
 
-        foreach($d->watchers as $watch):
+        $this->sendNotificationToWatchers($d);
+
+        return redirect()->route('discuss.show', ['slug' => $d->slug]);
+    }
+    /**
+     * Send notification to watchers if someone will reply to the discussion
+     *
+     * @param Discussion $discussion
+     * @return void
+     */
+    private function sendNotificationToWatchers(Discussion $discussion)
+    {
+        $watchers = $this->findWatchers($discussion);
+
+
+        Notification::send($watchers, new NewReplyAdded($discussion));
+    }
+    /**
+     * Find watchers of the discussion to send them notification
+     *
+     * @param Discussion $discussion
+     * @return @var array $watchers
+     */
+    private function findWatchers(Discussion $discussion)
+    {
+        $watchers = [];
+        foreach($discussion->watchers as $watch):
             if($watch->user_id != Auth::id())
             {
                 array_push($watchers, User::find($watch->user_id));
             }
         endforeach;
 
-        Notification::send($watchers, new NewReplyAdded($d));
-
-        return redirect()->route('discuss.show', ['slug' => $d->slug]);
+        return $watchers;
     }
-
 
 }
