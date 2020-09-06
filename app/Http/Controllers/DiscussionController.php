@@ -5,16 +5,22 @@ namespace App\Http\Controllers;
 use App\Channel;
 use App\Discussion;
 use App\Http\Requests\DiscussionRequest;
-use App\Notifications\NewReplyAdded;
+use App\Http\Services\DiscussionService;
 use App\Reply;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Notification;
-use App\User;
 use Illuminate\Support\Str;
 
 
 class DiscussionController extends Controller
 {
+    protected $service;
+    protected $discussion;
+    public function __construct(Discussion $discussion, DiscussionService $service)
+    {
+        $this->discussion = $discussion;
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -77,7 +83,8 @@ class DiscussionController extends Controller
      */
     public function showChannel($id)
     {
-        $discussions = Discussion::where('channel_id', $id)->orderBy('created_at', 'desc')->paginate(3);
+        $d = new Discussion();
+        $discussions = $d->channelPaginate($id, 3);
 
         return view('discussions.index', ['discussions' => $discussions, 'channelName' => Channel::find($id)->title]);
 
@@ -151,40 +158,11 @@ class DiscussionController extends Controller
         ]);
         $d = Discussion::findOrFail($id);
 
-        $this->sendNotificationToWatchers($d);
+        $this->service->sendNotificationToWatchers($d);
 
         return redirect()->route('discuss.show', ['slug' => $d->slug]);
     }
-    /**
-     * Send notification to watchers if someone will reply to the discussion
-     *
-     * @param Discussion $discussion
-     * @return void
-     */
-    private function sendNotificationToWatchers(Discussion $discussion)
-    {
-        $watchers = $this->findWatchers($discussion);
 
 
-        Notification::send($watchers, new NewReplyAdded($discussion));
-    }
-    /**
-     * Find watchers of the discussion to send them notification
-     *
-     * @param Discussion $discussion
-     * @return @var array $watchers
-     */
-    private function findWatchers(Discussion $discussion)
-    {
-        $watchers = [];
-        foreach($discussion->watchers as $watch):
-            if($watch->user_id != Auth::id())
-            {
-                array_push($watchers, User::find($watch->user_id));
-            }
-        endforeach;
-
-        return $watchers;
-    }
 
 }
