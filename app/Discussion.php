@@ -42,4 +42,14 @@ class Discussion extends Model
         endforeach;
         return false;
     }
+    /**
+     * Paginate discussions by channel
+     *
+     * @param int $id Channel id
+     * @param int $num links to paginate
+     */
+    public function paginateByChannel($id, $num)
+    {
+        return $this->where('channel_id', $id)->orderBy('created_at', 'desc')->paginate($num);
+    }
 }

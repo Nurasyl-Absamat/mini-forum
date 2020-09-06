@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Discussion;
-use App\Notifications\NewReplyAdded;
+use App\Http\Requests\DiscussionRequest;
+use App\Http\Services\DiscussionService;
 use App\Reply;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Notification;
-use App\User;
 use Illuminate\Support\Str;
 
 
 class DiscussionController extends Controller
 {
+    protected $service;
+    protected $discussion;
+    public function __construct(Discussion $discussion, DiscussionService $service)
+    {
+        $this->discussion = $discussion;
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,13 +46,9 @@ class DiscussionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DiscussionRequest $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required',
-            'channel_id' => 'required'
-        ]);
+
         $discuss = Discussion::create([
             'title' => $request->title,
             'content' => $request->content,
@@ -73,10 +75,16 @@ class DiscussionController extends Controller
         return view('discussions.show')->with('discussion', $discuss);
     }
 
-
+    /**
+     * Display discussions with that channel
+     *
+     * @param int $id
+     * @return view with discussions
+     */
     public function showChannel($id)
     {
-        $discussions = Discussion::where('channel_id', $id)->orderBy('created_at', 'desc')->paginate(3);
+        $d = new Discussion();
+        $discussions = $d->channelPaginate($id, 3);
 
         return view('discussions.index', ['discussions' => $discussions, 'channelName' => Channel::find($id)->title]);
 
@@ -101,13 +109,9 @@ class DiscussionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DiscussionRequest $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required',
-            'channel_id' => 'required',
-        ]);
+
 
         $d = Discussion::find($id);
 
@@ -136,6 +140,13 @@ class DiscussionController extends Controller
 
         return redirect()->route('forum');
     }
+    /**
+     * Create the reply for the discussion
+     * Also Notification for watchers that someone leaved reply
+     *
+     * @param int $id discussion id
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 
     public function reply($id)
     {
@@ -146,19 +157,12 @@ class DiscussionController extends Controller
             'discussion_id' => $id
         ]);
         $d = Discussion::findOrFail($id);
-        $watchers = array();
 
-        foreach($d->watchers as $watch):
-            if($watch->user_id != Auth::id())
-            {
-                array_push($watchers, User::find($watch->user_id));
-            }
-        endforeach;
+        $this->service->sendNotificationToWatchers($d);
 
-        Notification::send($watchers, new NewReplyAdded($d));
-
-        return redirect()->back();
+        return redirect()->route('discuss.show', ['slug' => $d->slug]);
     }
+
 
 
 }

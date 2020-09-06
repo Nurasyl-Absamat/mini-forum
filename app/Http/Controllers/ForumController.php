@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\Auth;
 class ForumController extends Controller
 {
 
-
+    /**
+     * Display discussions
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function index()
     {
         switch (request('filter')) {

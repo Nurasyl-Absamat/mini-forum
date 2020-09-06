@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/forum', 'ForumController@index')->name('forum');
+
 Route::get('discussion/{slug}', 'DiscussionController@show')->name('discuss.show');
 Route::post('discussions/{id}', 'DiscussionController@reply')->name('discuss.reply');
 Route::get('discussions/{channel}', 'DiscussionController@showChannel')->name('discuss.showChannel');
