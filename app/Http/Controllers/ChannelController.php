@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Channel;
+use App\Http\Requests\ChannelRequest;
 use Dotenv\Result\Success;
-use Illuminate\Http\Request;
 
 class ChannelController extends Controller
 {
@@ -38,11 +38,9 @@ class ChannelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ChannelRequest $request)
     {
-        $this->validate($request, [
-            'channel' => 'required',
-        ]);
+
         Channel::create([
             'title' => $request->channel,
         ]);
@@ -79,11 +77,8 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ChannelRequest $request, $id)
     {
-        $this->validate($request,[
-            'channel' => 'required',
-        ]);
 
         $channel = Channel::find($id);
 

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Discussion;
+use App\Http\Requests\DiscussionRequest;
 use App\Notifications\NewReplyAdded;
 use App\Reply;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Notification;
 use App\User;
@@ -40,13 +40,9 @@ class DiscussionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DiscussionRequest $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required',
-            'channel_id' => 'required'
-        ]);
+
         $discuss = Discussion::create([
             'title' => $request->title,
             'content' => $request->content,
@@ -106,13 +102,9 @@ class DiscussionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DiscussionRequest $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required',
-            'channel_id' => 'required',
-        ]);
+
 
         $d = Discussion::find($id);
 
